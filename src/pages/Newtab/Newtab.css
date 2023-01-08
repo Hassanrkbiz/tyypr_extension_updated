@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Comfortaa', cursive !important;
+}
+
+/* CHECK BOX STYLE  */
+.tgl {
+  display: none;
+}
+.tgl,
+.tgl:after,
+.tgl:before,
+.tgl *,
+.tgl *:after,
+.tgl *:before,
+.tgl + .tgl-btn {
+  box-sizing: border-box;
+}
+.tgl::selection,
+.tgl:after::selection,
+.tgl:before::selection,
+.tgl *::selection,
+.tgl *:after::selection,
+.tgl *:before::selection,
+.tgl + .tgl-btn::selection {
+  background: none;
+}
+.tgl + .tgl-btn {
+  outline: 0;
+  display: block;
+  width: 40px;
+  height: 20px;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+.tgl + .tgl-btn:after,
+.tgl + .tgl-btn:before {
+  position: relative;
+  display: block;
+  content: '';
+  width: 50%;
+  height: 100%;
+}
+.tgl + .tgl-btn:after {
+  left: 0;
+}
+.tgl + .tgl-btn:before {
+  display: none;
+}
+.tgl:checked + .tgl-btn:after {
+  left: 50%;
+}
+.tgl-light + .tgl-btn {
+  background: #f0f0f0;
+  border-radius: 2em;
+  padding: 2px;
+  transition: all 0.4s ease;
+}
+.tgl-light + .tgl-btn:after {
+  border-radius: 50%;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+.tgl-light:checked + .tgl-btn {
+  background: #b6c31f;
+}
+.tgl-ios + .tgl-btn {
+  background: #fbfbfb;
+  border-radius: 2em;
+  padding: 2px;
+  transition: all 0.4s ease;
+}
+.tgl-ios + .tgl-btn:after {
+  border-radius: 2em;
+  background: #202020;
+  transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    padding 0.3s ease, margin 0.3s ease;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
+}
+.tgl-ios + .tgl-btn:hover:after {
+  will-change: padding;
+}
+.tgl-ios + .tgl-btn:active {
+  box-shadow: inset 0 0 0 2em #e8eae9;
+}
+.tgl-ios + .tgl-btn:active:after {
+  padding-right: 0.8em;
+}
+.tgl-ios:checked + .tgl-btn {
+  background: #919b1f;
+}
+.tgl-ios:checked + .tgl-btn:active {
+  box-shadow: none;
+}
+.tgl-ios:checked + .tgl-btn:active:after {
+  margin-left: -0.8em;
+}
+
+.scroll-w-0::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* auto copy  BOX STYLE  */
+.tgl-auto-copy {
+  display: none;
+}
+.tgl-auto-copy,
+.tgl-auto-copy:after,
+.tgl-auto-copy:before,
+.tgl-auto-copy *,
+.tgl-auto-copy *:after,
+.tgl-auto-copy *:before,
+.tgl-auto-copy + .tgl-auto-copy-btn {
+  box-sizing: border-box;
+}
+.tgl-auto-copy::selection,
+.tgl-auto-copy:after::selection,
+.tgl-auto-copy:before::selection,
+.tgl-auto-copy *::selection,
+.tgl-auto-copy *:after::selection,
+.tgl-auto-copy *:before::selection,
+.tgl-auto-copy + .tgl-auto-copy-btn::selection {
+  background: none;
+}
+.tgl-auto-copy + .tgl-auto-copy-btn {
+  outline: 0;
+  display: block;
+  width: 30px;
+  height: 15px;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+.tgl-auto-copy + .tgl-auto-copy-btn:after,
+.tgl-auto-copy + .tgl-auto-copy-btn:before {
+  position: relative;
+  display: block;
+  content: '';
+  width: 50%;
+  height: 100%;
+}
+.tgl-auto-copy + .tgl-auto-copy-btn:after {
+  left: 0;
+}
+.tgl-auto-copy + .tgl-auto-copy-btn:before {
+  display: none;
+}
+.tgl-auto-copy:checked + .tgl-auto-copy-btn:after {
+  left: 50%;
+}
+.tgl-auto-copy-light + .tgl-auto-copy-btn {
+  background: #f0f0f0;
+  border-radius: 2em;
+  padding: 2px;
+  transition: all 0.4s ease;
+}
+.tgl-auto-copy-light + .tgl-auto-copy-btn:after {
+  border-radius: 50%;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+.tgl-auto-copy-light:checked + .tgl-auto-copy-btn {
+  background: #b6c31f;
+}
+.tgl-auto-copy-ios + .tgl-auto-copy-btn {
+  background: #fbfbfb;
+  border-radius: 2em;
+  padding: 2px;
+  transition: all 0.4s ease;
+}
+.tgl-auto-copy-ios + .tgl-auto-copy-btn:after {
+  border-radius: 2em;
+  background: #202020;
+  transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    padding 0.3s ease, margin 0.3s ease;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
+}
+.tgl-auto-copy-ios + .tgl-auto-copy-btn:hover:after {
+  will-change: padding;
+}
+.tgl-auto-copy-ios + .tgl-auto-copy-btn:active {
+  box-shadow: inset 0 0 0 2em #e8eae9;
+}
+.tgl-auto-copy-ios + .tgl-auto-copy-btn:active:after {
+  padding-right: 0.8em;
+}
+.tgl-auto-copy-ios:checked + .tgl-auto-copy-btn {
+  background: #919b1f;
+}
+.tgl-auto-copy-ios:checked + .tgl-auto-copy-btn:active {
+  box-shadow: none;
+}
+.tgl-auto-copy-ios:checked + .tgl-btn:active:after {
+  margin-left: -0.8em;
+}
+
+.translate-y--script-modal {
+  transform: translateY(-50%);
+}
