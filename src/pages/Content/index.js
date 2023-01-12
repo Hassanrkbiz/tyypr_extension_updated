@@ -15,17 +15,17 @@ const main = async () => {
   // await setStore('signInfo', signInfo);
   // var sign = await getSign();
   // await setStore('signKey', sign);
-  var cookies = await getCookies();
-  console.log('cookies',cookies);
-  await setStore('auth_id', cookies.auth_id);
-  await setStore('sess', cookies.sess);
-  var startDate = await getResults('/api2/v2/users/me/start-date-model');
-  console.log("startDate",startDate);
-  var date = '2022-12-02 00:00:00'
-  var marker = parseInt(new Date().getTime() / 1000);
-  var endpoint = `/api2/v2/earnings/chart?startDate=2022-12-02%2001%3A49%3A30&endDate=2022-12-25%2000%3A01%3A01&withTotal=true&filter[total_amount]=total_amount&filter[subscribes_amount]=subscribes_amount&filter[tips_amount]=tips_amount&filter[post_amount]=post_amount&filter[messages_amount]=messages_amount&filter[ref_amount]=ref_amount&filter[stream_amount]=stream_amount`;
-  var transactions = await getResults(endpoint);
-  console.log("transactions",transactions);
+//   var cookies = await getCookies();
+//   console.log('cookies',cookies);
+//   await setStore('auth_id', cookies.auth_id);
+//   await setStore('sess', cookies.sess);
+//   var startDate = await getResults('/api2/v2/users/me/start-date-model');
+//   console.log("startDate",startDate);
+//   var date = '2022-12-02 00:00:00'
+//   var marker = parseInt(new Date().getTime() / 1000);
+//   var endpoint = `/api2/v2/earnings/chart?startDate=2022-12-02%2001%3A49%3A30&endDate=2022-12-25%2000%3A01%3A01&withTotal=true&filter[total_amount]=total_amount&filter[subscribes_amount]=subscribes_amount&filter[tips_amount]=tips_amount&filter[post_amount]=post_amount&filter[messages_amount]=messages_amount&filter[ref_amount]=ref_amount&filter[stream_amount]=stream_amount`;
+//   var transactions = await getResults(endpoint);
+//   console.log("transactions",transactions);
 };
 // main();
 

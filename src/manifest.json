@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Tyypr Extension",
-  "description": "Tyypr Extension",
+  "description": "Tyypr Extension Updated",
   "background": { "service_worker": "background.bundle.js" },
   "action": {
     "default_popup": "popup.html",
