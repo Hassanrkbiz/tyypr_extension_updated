@@ -1,8 +1,9 @@
-import React, { useLayoutEffect, useState} from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Features from './Features';
 import NotesPopup from './NotesPopup';
 import ScriptPopup from './ScriptPopup';
 import { getResults } from '../Content/modules/request';
+import { getStorageVal } from '../../modules/utils';
 
 const SessionsList = ({
   isShowScriptPopup,
@@ -16,50 +17,61 @@ const SessionsList = ({
 }) => {
   const [sessionTime, setSessionTime] = useState('4:35');
   const [unAttendedSession, setUnattendedSession] = useState('4:35');
-  const [sales, setSales] = useState(45);
-  const [salesCount, setSalesCount] = useState(2);
+  const [sales, setSales] = useState('-');
+  const [salesCount, setSalesCount] = useState('-');
   const [reactionTime, setReactionTime] = useState('1:35');
-  const [earning, setEarning] = useState(45);
+  const [earning, setEarning] = useState('-');
 
   useLayoutEffect(() => {
     starter();
   }, []);
 
   const starter = async () => {
-    try{
+    try {
       var startDate = await getResults('/api2/v2/users/me/start-date-model');
       startDate = encodeURIComponent(startDate?.startDate);
-      var transactions = await getResults(`/api2/v2/payouts/transactions?startDate=${startDate}&marker=1673545272`);
+      var transactions = await getResults(
+        `/api2/v2/payouts/transactions?startDate=${startDate}&marker=1673545272`
+      );
       console.log('transactions', transactions);
       var list = transactions?.list;
-      if(list?.length){
+      if (list?.length) {
         setSalesCount(list.length);
         var salesAmount = getSalesAmount(list);
         setSales(salesAmount);
+        setEarning(salesAmount);
       } else {
         setSalesCount(0);
         setSales(0);
+        setEarning(0);
       }
     } catch (err) {
       console.log(err);
     }
 
-
-  }
+    var userName = document.querySelectorAll(
+      '.b-chat__header__title span.g-user-name'
+    );
+    console.log('userName', userName);
+    var body = document.querySelectorAll('body');
+    console.log('body', body);
+  };
 
   const getSalesAmount = (list) => {
     var countS = 0;
-    for(var li of list){
+    for (var li of list) {
       countS += li.amount;
     }
     return countS;
-  }
+  };
 
   return (
     <>
       <div className="z-1 group relative cursor-pointer border-t border-[#444444]  flex flex-col items-center justify-center">
         <div className="bg-[#202020] z-1 relative py-[10px] w-full">
-          <span className="text-[#B6C31F] text-[15px] font-light">{sessionTime}min</span>
+          <span className="text-[#B6C31F] text-[15px] font-light">
+            {sessionTime}min
+          </span>
           <p className="text-[#9A9A9A] font-light text-[13px] mb-0">
             session time
           </p>
@@ -82,13 +94,17 @@ const SessionsList = ({
         </p>
       </div>
       <div className="border-t border-[#444444] py-[10px]  flex flex-col items-center justify-center">
-        <span className="text-[#B6C31F] text-[15px] font-light ">{reactionTime}min</span>
+        <span className="text-[#B6C31F] text-[15px] font-light ">
+          {reactionTime}min
+        </span>
         <p className="text-[#9A9A9A] font-light text-[13px] mb-0">
           reaction time
         </p>
       </div>
       <div className="border-t border-[#444444] py-[10px]  flex flex-col items-center justify-center">
-        <span className="text-[#B6C31F] text-[15px] font-light ">${earning}</span>
+        <span className="text-[#B6C31F] text-[15px] font-light ">
+          ${earning}
+        </span>
         <p className="text-[#9A9A9A] font-light text-[13px] mb-0">
           earnings /hr{' '}
         </p>
