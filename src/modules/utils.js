@@ -5,7 +5,7 @@ export const getStorageVal = (key, empty) => {
     Store.get([key], (e) => {
         console.log(e);
         console.log(key);
-      if (e[key]) {
+      if (e[key] !== undefined) {
         resolve(e[key]);
       } else {
         resolve(empty);

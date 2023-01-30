@@ -1,6 +1,24 @@
 import React from 'react';
+import { getStorageVal } from '../../modules/utils';
 
 const OpenScriptItemModal = () => {
+  const [currentScript, setCurrentScript] = React.useState([]);
+
+  React.useLayoutEffect(() => {
+    start();
+  }, []);
+
+  const start = async () => {
+    var currentScriptID = await getStorageVal('currentScriptID', '');
+    var list = await getStorageVal('scriptList', []);
+    var cScript = [];
+    list.forEach((script) => {
+      if (script?.id && script?.id == currentScriptID) {
+        // console.log(`Script ${JSON.stringify([script])}`)
+        setCurrentScript(script);
+      }
+    });
+  };
   function handleStatus(e) {
     console.log(e.target.checked);
   }
@@ -13,40 +31,7 @@ const OpenScriptItemModal = () => {
             Ready for a Shower v.1
           </h4>
           <p className="text-left text-sm font-medium text-[#F4F4F4] ">
-            Hey Babe!
-          </p>
-          <p className="text-left text-sm font-medium text-[#F4F4F4] ">
-            I was just getting ready to slide inside the shower
-          </p>
-          <p className="text-left text-sm font-medium text-[#F4F4F4] ">
-            Wish you could slide in
-          </p>
-          <p className="text-left text-sm font-medium text-[#F4F4F4] ">
-            Are you alone RN?
-          </p>
-          <p className="text-left text-sm font-medium text-[#F4F4F4] ">
-            Keep in mind the sooner he can the better
-          </p>
-          <p className="text-left text-sm font-medium text-[#F4F4F4] ">
-            Wait for Response
-          </p>
-          <p className="opacity-40 text-left text-sm font-medium text-[#F4F4F4] ">
-            Create Duplicate
-          </p>
-          <p className="text-left text-sm font-medium text-[#F4F4F4] ">
-            Wait for Response
-          </p>
-          <p className="text-left text-sm font-medium text-[#F4F4F4] ">
-            If Not: Ok baby, let me know when your free!{' '}
-          </p>
-          <p className="opacity-40 text-left text-sm font-medium text-[#F4F4F4] ">
-            auto copy
-          </p>
-          <p className="text-left text-sm font-medium text-[#F4F4F4] ">
-            Send pic/vid with towel : Free
-          </p>
-          <p className="text-left text-sm font-medium text-[#F4F4F4] ">
-            Send steamy nude : $20
+            {currentScript.name ? currentScript.name : ''}
           </p>
         </div>
 

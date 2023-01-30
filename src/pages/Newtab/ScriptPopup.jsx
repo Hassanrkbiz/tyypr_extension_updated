@@ -1,22 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ScriptListItem from './ScriptListItem';
 import JSZip from 'jszip';
 import Docxtemplater from 'docxtemplater';
 import PizZip from 'pizzip';
 import { getStorageVal } from '../../modules/utils';
 import { Store } from '../../modules/variables';
+import { GreenCheckIcon } from './Icons';
 
 const ScriptPopup = ({ setShowScriptListModal }) => {
   var FileInput = React.useRef();
   const [list, setList] = React.useState([]);
+  const [isShowCheck, setShowCheck] = useState(false);
+  const [reload, setReload] = useState(null);
+  const scrollView = React.useRef();
 
   React.useLayoutEffect(() => {
     start();
-  }, []);
+  }, [reload]);
 
   const start = async () => {
     var scriptList = await getStorageVal('scriptList', []);
-    console.log('scriptList',scriptList);
+    console.log('scriptList', scriptList);
     if (scriptList.length) {
       setList(scriptList);
     }
@@ -26,10 +30,16 @@ const ScriptPopup = ({ setShowScriptListModal }) => {
 
   const saveDocs = (txt) => {
     var slist = list;
-    slist.push({ name: txt, checked: false });
+    var uuid = crypto.randomUUID();
+    slist.push({ name: txt, checked: false, id: uuid });
     console.log(slist);
     setList(slist);
-    Store.set({ scriptList: slist });
+    Store.set({ scriptList: slist }, () => {
+      setReload('1');
+      setTimeout(() => {
+        scrollView.current.scrollTop = scrollView.current.scrollHeight;
+      }, 1000);
+    });
   };
   const scritsdata = [
     {
@@ -54,7 +64,41 @@ const ScriptPopup = ({ setShowScriptListModal }) => {
     },
   ];
 
+  const openModal = (id) => {
+    if (id) {
+      Store.set({ currentScriptID: id }, () => {
+        setShowScriptListModal(true);
+      });
+    }
+  };
+
+  const listView = () => {
+    var listV = list.map((obj, index) => {
+      console.log(obj);
+      return (
+        <li
+          className="text-[#c2c2c2] text-[12px] border-b border-[#444444]  h-[54px] flex items-center px-4 py-2"
+          onClick={() => {
+            setShowCheck(!isShowCheck);
+            openModal(obj?.id);
+          }}
+        >
+          {isShowCheck && (
+            <span className="mr-1">
+              <GreenCheckIcon />
+            </span>
+          )}
+
+          <span className="truncate">{obj.name}</span>
+        </li>
+      );
+    });
+    console.log(listV);
+    return listV;
+  };
+
   const fileUploaded = (event) => {
+    setReload(null);
     console.log(event);
     var input = event.target;
     var reader = new FileReader();
@@ -78,17 +122,11 @@ const ScriptPopup = ({ setShowScriptListModal }) => {
           </span>
         </div>
 
-        <ul className="mb-0 max-h-[162px] overflow-auto scroll-w-0">
-          {list.map((obj, index) => {
-              console.log(obj);
-              return (
-                <ScriptListItem
-                  obj={obj}
-                  key={index}
-                  setShowScriptListModal={setShowScriptListModal}
-                />
-              );
-            })}
+        <ul
+          className="mb-0 max-h-[162px] overflow-auto scroll-w-0"
+          ref={scrollView}
+        >
+          {listView()}
         </ul>
 
         <div className="py-1 w-full h-[54px] flex items-center px-4">
