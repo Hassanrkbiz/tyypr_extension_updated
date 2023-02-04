@@ -4,6 +4,7 @@ import NotesPopup from './NotesPopup';
 import ScriptPopup from './ScriptPopup';
 import { getResults } from '../Content/modules/request';
 import { getStorageVal } from '../../modules/utils';
+import '../Content/modules/arrive.js';
 
 const SessionsList = ({
   isShowScriptPopup,
@@ -19,7 +20,7 @@ const SessionsList = ({
   const [unAttendedSession, setUnattendedSession] = useState('4:35');
   const [sales, setSales] = useState('-');
   const [salesCount, setSalesCount] = useState('-');
-  const [reactionTime, setReactionTime] = useState('1:35');
+  const [reactionTime, setReactionTime] = useState('-:--');
   const [earning, setEarning] = useState('-');
 
   useLayoutEffect(() => {

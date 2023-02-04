@@ -22,7 +22,7 @@ const Newtab = () => {
   const [unAttendedSession, setUnattendedSession] = useState('4:35');
   const [sales, setSales] = useState('-');
   const [salesCount, setSalesCount] = useState('-');
-  const [reactionTime, setReactionTime] = useState('1:35');
+  const [reactionTime, setReactionTime] = useState('0:00');
   const [earning, setEarning] = useState('-');
 
   useLayoutEffect(() => {
@@ -37,8 +37,11 @@ const Newtab = () => {
     try {
       var sessT = await getStorageVal('sessionTime', '0:00');
       var isSessEnd = await getStorageVal('isSessionEnd', true);
+      var timeDiff = await getStorageVal('timeDiff',0);
+      formatReactionTime(timeDiff);
       setSessionEnd(isSessEnd);
       setSessionTime(sessT);
+      setUnattendedSession(sessT);
       var startDate = await getResults('/api2/v2/users/me/start-date-model');
       startDate = encodeURIComponent(startDate?.startDate);
       var transactions = await getResults(
@@ -124,8 +127,24 @@ const Newtab = () => {
     sessT = sessTime;
     Store.set({ sessionTime: sessTime }, () => {
       setSessionTime(sessTime);
+      setUnattendedSession(sessTime);
     });
   };
+
+  chrome.storage.onChanged.addListener((e) => {
+    console.log(e);
+    if(e?.timeDiff?.newValue){
+      formatReactionTime(e?.timeDiff?.newValue);
+    }
+  });
+
+  const formatReactionTime = (Rtime) => {
+    var timeInSec = parseInt(Rtime/1000);
+    var timeInMin = parseInt(timeInSec/60);
+    var ReactionT = `${timeInMin}:${timeInSec % 60 > 9 ? timeInSec % 60 : '0'+(timeInSec % 60)}`
+    // console.log(ReactionT);
+    setReactionTime(ReactionT);
+  }
 
   return (
     <>
